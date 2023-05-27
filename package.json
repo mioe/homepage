@@ -1,0 +1,17 @@
+{
+	"name": "homepage",
+	"author": "mioe <mioe.galaxy@gmail.com> (https://github.com/mioe/)",
+	"engines": {
+		"node": ">=18",
+		"pnpm": ">=8"
+	},
+	"license": "MIT",
+	"scripts": {
+		"dev": "concurrently -p \"[{name}]\" -n \"backend,frontend\" -c \"magenta,cyan\" \"cd packages/backend && pnpm dev\" \"cd packages/frontend && pnpm dev\""
+	},
+	"devDependencies": {
+		"@mioe/eslint-config": "^0.1.4",
+		"concurrently": "^8.0.1",
+		"eslint": "^8.41.0"
+	}
+}
