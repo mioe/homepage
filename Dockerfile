@@ -8,9 +8,6 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/backend/package.json ./packages/backend/package.json
 COPY packages/frontend/package.json ./packages/frontend/package.json
-RUN ls -all
-RUN ls -all packages
-RUN ls -all packages/backend
 RUN pnpm install
 
 FROM base AS build
@@ -22,8 +19,11 @@ COPY --from=dependencies /app/packages/backend/node_modules ./packages/backend/n
 COPY --from=dependencies /app/packages/frontend/node_modules ./packages/frontend/node_modules
 
 FROM base as deploy
+RUN echo "deploy"
 WORKDIR /app
+COPY . .
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/packages/backend/node_modules ./packages/backend/node_modules
 COPY --from=build /app/packages/frontend/node_modules ./packages/frontend/node_modules
+RUN ls -all
 CMD ["pnpm", "dev"]
